@@ -1,0 +1,70 @@
+<html>
+<head>
+    <title>Game is ON!</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="sprint-box">
+    <h1>Round {{ round_num }} / {{ rounds }}</h1>
+    <h1> Sprint {{ sprint_in_round }} / {{sprints_per_round}}</h1>
+    <h2>Team: {{ team.name }}</h2>
+    <p>Capacity: {{ team.capacity }}</p>
+    <h2>Customer Expectation:</h2>
+    <p>Features: {{ game.expectation['feature'] }}, Optimizations: {{ game.expectation['optimization'] }}</p>
+</div>
+
+<div class="container">
+    <form method="post">
+        <label>New Feature:</label>
+        <input type="number" name="feature" min="0" value="0"><br>
+
+        <label>Feature Optimization:</label>
+        <input type="number" name="optimization" min="0" value="0"><br>
+
+        <label>Technical Debt:</label>
+        <input type="number" name="technical_debt" min="0" value="0"><br>
+
+        <label>Testing:</label>
+        <input type="number" name="testing" min="0" value="0"><br>
+
+        <label>Bug Resolution:</label>
+        <input type="number" name="bugfix" min="0" value="0"><br><br>
+
+        <button type="submit">Submit sprint</button>
+
+        {% if error %}
+            <p style="color:red;"><strong>Error:</strong> {{ error }}</p>
+        {% endif %}
+        
+    </form>
+
+    <div class="status-box">
+        
+        <h1>Team Status</h1>
+        <h2>This round</h2>
+        <p>Features: {{ team.features_round }}</p>
+        <p>Optimizations: {{ team.optimizations_round }}</p>
+
+        <h2>Total</h2>
+        <p>Satisfaction: {{ team.satisfaction }}</p>
+        <p>Developers: {{ team.developers }}</p>
+        <p>Bugs: {{ team.bugs }}</p>
+        <p>Technical Debt: {{ team.technical_debt }}</p>       
+        <p>Total features: {{ team.total_features }}</p>
+        <p>Total optimizations: {{ team.total_optimizations }}</p>
+        {% if round_message %}
+        <div class="round-message-box">
+            {{ round_message }}
+        </div>
+         {% endif %}
+    </div>
+
+
+
+</div>
+
+
+</body>
+</html>

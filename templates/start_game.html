@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Agile Simulator - Start Game</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="start-container">
+        <h1>Welcome to the Agile Simulator</h1>
+        <form method="post" action="#">
+
+            <input type="text" name="team_name" placeholder="Enter Team Name" required>
+            <input type="number" name="total_rounds" min="0" placeholder="Enter Number of Rounds" required>
+            <button type="submit">Start Game</button>
+
+        </form>
+    </div>
+</body>
+</html>

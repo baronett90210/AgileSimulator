@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Game Over - Agile Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="end-container">
+        <h1>🏁 Game Complete!</h1>
+        <p><strong>Team:</strong> {{ team.name }}</p>
+
+        <div class="final-score-box">
+            <p><strong>Final Satisfaction Score:</strong> {{ team.satisfaction }}</p>
+            <p><strong>Developers:</strong> {{ team.developers }}</p>
+            <p><strong>Total Features Delivered:</strong> {{ team.total_features }}</p>
+            <p><strong>Total Optimizations:</strong> {{ team.total_optimizations }}</p>
+            <p><strong>Remaining Bugs:</strong> {{ team.bugs }}</p>
+            <p><strong>Remaining Technical Debt:</strong> {{ team.technical_debt }}</p>
+            <p><strong>Unused Resources:</strong> {{ team.resources }}</p>
+        </div>
+
+        <a href="{{ url_for('start_game') }}" class="btn">Play Again</a>
+    </div>
+</body>
+</html>

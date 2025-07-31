@@ -1,0 +1,190 @@
+/* Start page styling */
+.start-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10vh;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.start-container h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #0d6efd;
+}
+
+.start-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 300px;
+    background: #fff;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    max-height: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.start-container input[type="text"] {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.start-container button {
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.start-container button:hover {
+    background-color: #0b5ed7;
+}
+
+
+
+
+/* Play round page styling */
+body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+/* Round box styling */
+.round-box {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 4px 8px rgba(14, 13, 13, 0.05);
+    margin-bottom: 2rem;
+    max-width: 300px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.round-box h1 {
+    margin-top: 0;
+    font-size: 1.6rem;
+    color: #0d6efd;
+}
+
+.round-box p {
+    margin: 0.5rem 0;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Container holds form + status side-by-side */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+    max-width: 960px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Form box */
+form {
+    flex: 1;
+    min-width: 300px;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Input and button styling */
+label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0b5ed7;
+}
+
+/* Status box */
+.status-box {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    min-width: 200px;
+    max-width: 250px;
+    flex-shrink: 0;
+}
+
+.status-box h1 {
+    margin-top: 0;
+    font-size: 1.6rem;
+    color: #444;
+}
+
+.status-box h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #444;
+}
+
+.status-box p {
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+
+/* Error message */
+p.error {
+    color: #dc3545;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Round message box */
+.round-message-box {
+    margin-top: 1.5rem;
+    background-color: #eaf4ff;
+    border-left: 6px solid #0d6efd;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 300px;
+    font-weight: 500;
+    color: #0d3e7c;
+}
