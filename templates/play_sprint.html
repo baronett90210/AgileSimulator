@@ -56,7 +56,7 @@
         <p>Total optimizations: {{ team.total_optimizations }}</p>
         {% if round_message %}
         <div class="round-message-box">
-            {{ round_message }}
+            {{ round_message | safe}}
         </div>
          {% endif %}
     </div>
