@@ -6,14 +6,12 @@ app = Flask(__name__)
 app.secret_key = 'your-very-secret-key'  # Set a unique and secret key for session management
 
 @app.route('/')
-def home(name):
-    return render_template('home.html')
+def home():
+    return redirect(url_for('start_game'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
-
-
 
 @app.route('/start_game', methods=['GET', 'POST'])
 def start_game():
