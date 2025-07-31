@@ -122,9 +122,9 @@ def round_message_text(met_expectation, too_many_bugs):
     if met_expectation and not too_many_bugs:
         return "✅ Expectations met! Satisfaction +1!"
     elif not met_expectation and too_many_bugs:
-        return "❌ Expectations not met! Satisfaction -1! \n ❌ More then 3 bugs! Satisfaction -1!"
+        return "❌ Expectations not met! Satisfaction -1!<br>❌ More then 3 bugs! Satisfaction -1!"
     elif met_expectation and too_many_bugs:
-        return "✅ Expectations met! Satisfaction +1! \n ❌ More then 3 bugs! Satisfaction -1!"
+        return "✅ Expectations met! Satisfaction +1!<br>❌ More then 3 bugs! Satisfaction -1!"
     else:
         return "❌ Expectations not met! Satisfaction -1!"
 
