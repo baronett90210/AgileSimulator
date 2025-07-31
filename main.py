@@ -86,8 +86,8 @@ def play_sprint(sprint_num):
                 return redirect(url_for('end_game'))
             
             elif (sprint_num + 1) % game.sprints_per_round == 0:
-                met_expectations = game.end_round()
-                round_message = round_message_text(met_expectations)
+                met_expectations, too_many_bugs = game.end_round()
+                round_message = round_message_text(met_expectations, too_many_bugs)
                 session['round_message'] = round_message
                 # Update team state in session
                 session['team_data'] = team.to_dict()
@@ -118,9 +118,13 @@ def end_game():
 
 ####### helper functions #######
 # This function generates a message based on whether expectations were met
-def round_message_text(met_expectation):
-    if met_expectation:
+def round_message_text(met_expectation, too_many_bugs):
+    if met_expectation and not too_many_bugs:
         return "✅ Expectations met! Satisfaction +1!"
+    elif not met_expectation and too_many_bugs:
+        return "❌ Expectations not met! Satisfaction -1! \n ❌ More then 3 bugs! Satisfaction -1!"
+    elif met_expectation and too_many_bugs:
+        return "✅ Expectations met! Satisfaction +1! \n ❌ More then 3 bugs! Satisfaction -1!"
     else:
         return "❌ Expectations not met! Satisfaction -1!"
 

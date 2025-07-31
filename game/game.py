@@ -42,6 +42,7 @@ class Game:
             self.team.features_round >= self.expectation['feature'] and
             self.team.optimizations_round >= self.expectation['optimization']
         )
+        too_many_bugs = self.team.bugs >= 4
         self.team.features_round = 0
         self.team.optimizations_round = 0
 
@@ -53,11 +54,15 @@ class Game:
             self.team.satisfaction -= 1
             print("❌ Expectations not met! Satisfaction -1")
         
+        if too_many_bugs:
+            self.team.satisfaction -= 1
+            print("❌ Bugs present! Satisfaction -1")
+
         print(f"Final Satisfaction: {self.team.satisfaction}")
         print(f"Resources: {self.team.resources}")
         print(f"Developers: {self.team.developers}")
 
-        return met_expectation
+        return met_expectation, too_many_bugs
 
     def end_game(self):
         print("\n--- Game Over ---")
