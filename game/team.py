@@ -29,8 +29,7 @@ class Team:
 
     def handle_staffing(self, staffing):
         if 'Hire developers' in staffing and staffing['Hire developers'] > 0:
-            for _ in range(staffing['Hire developers']):
-                self.try_hire_developer()
+            self.try_hire_developer(staffing['Hire developers'])
 
     def end_sprint(self):
         # Update team state after a sprint: accumulation 
@@ -49,8 +48,8 @@ class Team:
         self.total_features += self.allocations['New feature']
         self.total_optimizations += self.allocations['Optimization']
 
-    def try_hire_developer(self):
-        if self.resources >= 3:
+    def try_hire_developer(self, count):
+        if self.resources >= 3*count:
             self.developers += 1
             self.skill_per_dev.append(3)
             self.resources -= 3
