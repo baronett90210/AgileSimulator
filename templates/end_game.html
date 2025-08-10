@@ -4,21 +4,64 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="end-container">
-        <h1>🏁 Game Complete!</h1>
-        <p><strong>Team:</strong> {{ team.name }}</p>
+   <div class="end-container">
+    <h1>🏁 Game Complete!</h1>
+    <h2>Team {{ team.name }}</h2>
 
+    <div class="results-flex">
+
+        <!-- Final Score Box -->
         <div class="final-score-box">
-            <p><strong>Final Satisfaction Score:</strong> {{ team.satisfaction }}</p>
-            <p><strong>Developers:</strong> {{ team.developers }}</p>
-            <p><strong>Total Features Delivered:</strong> {{ team.total_features }}</p>
-            <p><strong>Total Optimizations:</strong> {{ team.total_optimizations }}</p>
-            <p><strong>Remaining Bugs:</strong> {{ team.bugs }}</p>
-            <p><strong>Remaining Technical Debt:</strong> {{ team.technical_debt }}</p>
-            <p><strong>Unused Resources:</strong> {{ team.resources }}</p>
+            <h3>📌 Final Results</h3>
+            <div class="score-grid">
+                <div><strong>Satisfaction:</strong> {{ team.satisfaction }}</div>
+                <div><strong>Developers:</strong> {{ team.developers }}</div>
+                <div><strong>Total Features:</strong> {{ team.total_features }}</div>
+                <div><strong>Total Optimizations:</strong> {{ team.total_optimizations }}</div>
+                <div><strong>Bugs:</strong> {{ team.bugs }}</div>
+                <div><strong>Technical Debt:</strong> {{ team.technical_debt }}</div>
+                <div><strong>Resources:</strong> {{ team.resources }}</div>
+            </div>      
+            
+            <a href="{{ url_for('start_game') }}" class="btn">🔄 Play Again</a>
+            
         </div>
 
-        <a href="{{ url_for('start_game') }}" class="btn">Play Again</a>
-    </div>
+        
+        <!-- Summary Table -->
+        <div class="summary-box">
+            <h3>📊 Raiting Table </h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>Satisfaction</th>
+                        <th>Features</th>
+                        <th>Optimizations</th>
+                        <th>Bugs</th>
+                        <th>Technical Debt</th>
+                        <th>Resources</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in results %}
+                    <tr {% if r.id == last_id %}class="highlight"{% endif %}>
+                        <td>{{ r.team }}</td>
+                        <td>{{ r.satisfaction }}</td>
+                        <td>{{ r.features }}</td>
+                        <td>{{ r.optimizations }}</td>
+                        <td>{{ r.bugs }}</td>
+                        <td>{{ r.technical_debt }}</td>
+                        <td>{{ r.resources }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>   
+
+</div>
+
 </body>
 </html>

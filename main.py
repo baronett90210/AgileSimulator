@@ -1,6 +1,9 @@
 from flask import Flask, redirect, url_for, render_template, request, session
+import os
+import json
 from game.game import Game
 from game.team import Team
+
 # Initialize Flask application
 app = Flask(__name__)
 app.secret_key = 'your-very-secret-key'  # Set a unique and secret key for session management
@@ -105,15 +108,51 @@ def play_sprint(sprint_num):
         team=team, error=error, round_message=round_message
     )
 
-@app.route('/end_game')
+@app.route('/end_game', methods=['GET', 'POST'])
 def end_game():
+
+    RESULTS_FILE = "results.json"
+
     team_name = session.get('team_name')
     if not team_name:
+        return redirect(url_for('start_game'))
+    if request.method == 'POST':
         return redirect(url_for('start_game'))
     
     team = Team.from_dict(session['team_data'])
 
-    return render_template('end_game.html', team=team)   
+     # Load existing results
+    if os.path.exists(RESULTS_FILE):
+        with open(RESULTS_FILE, "r") as f:
+            results = json.load(f)
+    else:
+        results = []
+
+     # Save current team result
+    result_entry = {
+        "team": team.name,
+        "satisfaction": team.satisfaction,
+        "features": team.total_features,
+        "optimizations": team.total_optimizations,
+        "bugs": team.bugs,
+        "technical_debt": team.technical_debt,
+        "resources": team.resources,
+        "id": len(results) + 1  # Unique ID for the result
+    }
+
+    # Append new result
+    results.append(result_entry)
+
+    # Save updated results
+    with open(RESULTS_FILE, "w") as f:
+        json.dump(results, f, indent=4)
+
+    # ✅ Sort: high satisfaction, then fewer bugs, then fewer technical debt
+    results.sort(
+        key=lambda r: (-r["satisfaction"], r["bugs"], r["technical_debt"])
+    )
+ 
+    return render_template('end_game.html', team=team, results=results, last_id = result_entry["id"])   
 
 
 ####### helper functions #######

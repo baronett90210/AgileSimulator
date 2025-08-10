@@ -188,3 +188,86 @@ p.error {
     font-weight: 500;
     color: #0d3e7c;
 }
+
+
+
+/* End page styling */
+
+.results-flex {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;            /* space between boxes */
+    flex-wrap: nowrap;    /* force them to stay side-by-side */
+    margin-top: 2rem;
+}
+
+.final-score-box {
+    background: #f8f9fa;
+    border: 2px solid #0d6efd;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    width: 450px;      
+}
+
+ .summary-box {
+    background: #f8f9fa;
+    border: 2px solid #0d6efd;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    /* width: 450px; */        
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.summary-table th, .summary-table td {
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.summary-table th {
+    background-color: #f4f6f9;
+}
+
+.summary-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.highlight {
+    background-color: #b8931a;
+}
+
+.score-grid {
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 2rem;
+}
+
+.score-grid div {
+    background: #ffffff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.final-score-box button {
+    font-size: 1rem;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 35%;
+}
+
+.final-score-box button:hover {
+    background-color: #0b5ed7;
+}
