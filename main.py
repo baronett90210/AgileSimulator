@@ -24,7 +24,8 @@ def start_game():
 
     if request.method == 'POST':
         team_name = request.form['team_name']
-        rounds = int(request.form['total_rounds'])
+        # rounds = int(request.form['total_rounds'])
+        rounds = 5
         session['team_name'] = team_name
         session['total_rounds'] = rounds
         return redirect(url_for('play_sprint', sprint_num = 0))
@@ -47,8 +48,7 @@ def play_sprint(sprint_num):
         # Load previous game state to get sprints_per_round
         prev_game_data = session['game_data']
         sprints_per_round = prev_game_data['sprints_per_round'] 
-        # Generate new expectation if it's the start of a new round
-        expectation = None if (sprint_num + 1) % sprints_per_round == 1 else prev_game_data.get('expectation')
+        expectation = prev_game_data['expectation']
         game = Game(team, expectation=expectation, total_sprints=prev_game_data['total_sprints'])
 
     else:
@@ -93,7 +93,11 @@ def play_sprint(sprint_num):
                 met_expectations, too_many_bugs = game.end_round()
                 round_message = round_message_text(met_expectations, too_many_bugs)
                 session['round_message'] = round_message
-                # Update team state in session
+                # Update game and team state in session
+                # Increase expectation if it's the start of a new round
+                game.expectation['feature'] += 1
+                game.expectation['optimization'] += 1
+                session['game_data'] = game.to_dict()
                 session['team_data'] = team.to_dict()
                 return redirect(url_for('play_sprint', sprint_num = sprint_num + 1))
             

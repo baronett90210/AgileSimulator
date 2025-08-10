@@ -9,8 +9,8 @@ class Game:
         self.sprints_per_round = 4 
         self.team = team
         self.expectation = {
-            'feature': random.randint(3, 5),
-            'optimization': random.randint(2, 3)
+            'feature': 2,
+            'optimization': 2
         } if expectation is None else expectation
         self.total_sprints = total_sprints
 

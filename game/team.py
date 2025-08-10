@@ -30,8 +30,9 @@ class Team:
     def end_sprint(self):
         # Update team state after a sprint: accumulation 
         self.technical_debt += self.allocations['New feature'] 
+        self.technical_debt += self.allocations['Optimization']
         if self.allocations['Testing'] < self.allocations['New feature']:
-            new_bugs = self.allocations['New feature'] - self.allocations['Testing']
+            new_bugs = self.allocations['New feature'] + self.allocations['Optimization'] - self.allocations['Testing']
         else:
             new_bugs = 0
         self.bugs += new_bugs
