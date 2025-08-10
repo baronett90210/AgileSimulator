@@ -111,7 +111,8 @@ def play_sprint(sprint_num):
 @app.route('/end_game', methods=['GET', 'POST'])
 def end_game():
 
-    RESULTS_FILE = "results.json"
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    RESULTS_FILE = os.path.join(BASE_DIR, "results.json")
 
     team_name = session.get('team_name')
     if not team_name:
