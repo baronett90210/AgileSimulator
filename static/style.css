@@ -236,10 +236,6 @@ p.error {
     background-color: #f4f6f9;
 }
 
-.summary-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
 .highlight {
     background-color: #b8931a;
 }

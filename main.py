@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session
 import os
 import json
+import uuid
 from game.game import Game
 from game.team import Team
 
@@ -138,7 +139,7 @@ def end_game():
         "bugs": team.bugs,
         "technical_debt": team.technical_debt,
         "resources": team.resources,
-        "id": len(results) + 1  # Unique ID for the result
+        "id": str(uuid.uuid4())  # Unique ID for the result
     }
 
     # Append new result
