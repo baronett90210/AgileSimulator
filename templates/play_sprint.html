@@ -11,6 +11,8 @@
     <h1> Sprint {{ sprint_in_round }} / {{sprints_per_round}}</h1>
     <h2>Team: {{ team.name }}</h2>
     <p>Capacity: {{ team.capacity }}</p>
+    <p>Developers: {{ team.developers }}</p>
+    <p>Resources: {{ team.resources }}</p>
     <h2>Customer Expectation:</h2>
     <p>Features: {{ game.expectation['feature'] }}, Optimizations: {{ game.expectation['optimization'] }}</p>
 </div>
@@ -32,6 +34,9 @@
         <label>Bug Resolution:</label>
         <input type="number" name="bugfix" min="0" value="0"><br><br>
 
+        <label>Hire developers:</label>
+        <input type="number" name="hire_developers" min="0" value="0"><br><br>
+
         <button type="submit">Submit sprint</button>
 
         {% if error %}
@@ -50,7 +55,6 @@
 
         <h2>Total</h2>
         <p>Satisfaction: {{ team.satisfaction }}</p>
-        <p>Developers: {{ team.developers }}</p>
         <p>Bugs: {{ team.bugs }}</p>
         <p>Technical Debt: {{ team.technical_debt }}</p>       
         <p>Total features: {{ team.total_features }}</p>

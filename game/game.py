@@ -9,12 +9,12 @@ class Game:
         self.sprints_per_round = 4 
         self.team = team
         self.expectation = {
-            'feature': 2,
-            'optimization': 2
+            'feature': 1,
+            'optimization': 1
         } if expectation is None else expectation
         self.total_sprints = total_sprints
 
-    def play_sprint(self, sprint_num, allocations = None):
+    def play_sprint(self, sprint_num, allocations = None, staffing = None):
 
         # create allocations from command prompt if not given
         if allocations is None:
@@ -33,6 +33,7 @@ class Game:
                         print("Enter a valid integer.")
 
         self.team.allocate_points(allocations)
+        self.team.handle_staffing(staffing)
         self.team.end_sprint()
 
     def end_round(self):

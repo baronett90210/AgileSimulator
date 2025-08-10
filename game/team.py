@@ -7,7 +7,7 @@ class Team:
         self.skill_per_dev = [3]*3  # Each developer has a skill level of 3
         self.bugs = 0
         self.technical_debt = 0
-        self.resources = 0
+        self.resources = 3
         self.satisfaction = 0
         self.features_round = 0
         self.optimizations_round = 0
@@ -27,14 +27,16 @@ class Team:
             raise ValueError("Allocation exceeds capacity!")
         self.allocations = allocations
 
+    def handle_staffing(self, staffing):
+        if 'Hire developers' in staffing and staffing['Hire developers'] > 0:
+            for _ in range(staffing['Hire developers']):
+                self.try_hire_developer()
+
     def end_sprint(self):
         # Update team state after a sprint: accumulation 
         self.technical_debt += self.allocations['New feature'] 
-        self.technical_debt += self.allocations['Optimization']
-        if self.allocations['Testing'] < self.allocations['New feature']:
-            new_bugs = self.allocations['New feature'] + self.allocations['Optimization'] - self.allocations['Testing']
-        else:
-            new_bugs = 0
+        self.technical_debt += self.allocations['Optimization']   
+        new_bugs = self.allocations['New feature'] + self.allocations['Optimization'] - self.allocations['Testing']
         self.bugs += new_bugs
 
         # Update state: reduction
@@ -50,8 +52,11 @@ class Team:
     def try_hire_developer(self):
         if self.resources >= 3:
             self.developers += 1
+            self.skill_per_dev.append(3)
             self.resources -= 3
             print(f"{self.name} hired a new developer!")
+        else:
+            raise ValueError("Does not have enough resources to hire a new developer!!")
 
     def to_dict(self):
         return {

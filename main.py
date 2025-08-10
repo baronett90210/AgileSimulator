@@ -76,7 +76,12 @@ def play_sprint(sprint_num):
                 'Bug resolution':  int(request.form.get('bugfix', 0)),
                 'Technical debt':  int(request.form.get('technical_debt', 0))
             }
-            game.play_sprint(sprint_num, allocations = allocations)
+
+            staffing = { 
+                'Hire developers':  int(request.form.get('hire_developers', 0))
+            }
+
+            game.play_sprint(sprint_num, allocations = allocations, staffing = staffing)
 
             # Update team state in session
             session['team_data'] = team.to_dict()
