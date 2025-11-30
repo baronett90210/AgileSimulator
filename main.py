@@ -81,7 +81,7 @@ def play_sprint(sprint_num):
                 'Hire developers':  int(request.form.get('hire_developers', 0))
             }
 
-            game.play_sprint(sprint_num, allocations = allocations, staffing = staffing)
+            game.play_sprint(sprint_num, allocations = allocations, staffing = staffing, current_sprint = sprint_num)
 
             # Update team state in session
             session['team_data'] = team.to_dict()
@@ -114,7 +114,7 @@ def play_sprint(sprint_num):
 
     return render_template(
         'play_sprint.html', game=game, sprints_per_round=game.sprints_per_round,
-        sprint_in_round=sprint_in_round, round_num=round_num, rounds=session['total_rounds'],
+        sprint_in_round=sprint_in_round, round_num=round_num, sprint_num = sprint_num, rounds=session['total_rounds'],
         team=team, error=error, round_message=round_message
     )
 

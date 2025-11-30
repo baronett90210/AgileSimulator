@@ -61,7 +61,7 @@ class Game:
 
         print(f"Final Satisfaction: {self.team.satisfaction}")
         print(f"Resources: {self.team.resources}")
-        print(f"Developers: {self.team.developers}")
+        print(f"Developers: {self.team.n_developers}")
 
         return met_expectation, too_many_bugs
 
