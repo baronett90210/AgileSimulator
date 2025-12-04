@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>Intermediate results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   <div class="end-container">
+    <h1> Intermediate results </h1>
+    <h2>Team {{ my_result.team }}</h2>
+
+    <div class="results-flex">
+
+        <!-- Final Score Box -->
+        <div class="final-score-box">
+            <h3>📌 Results </h3>
+            <div class="score-grid">
+                <div><strong>Satisfaction:</strong> {{ my_result.satisfaction }}</div>
+                <div><strong>Developers:</strong> {{ my_result.n_developers }}</div>
+                <div><strong>Total Features:</strong> {{ my_result.features }}</div>
+                <div><strong>Total Optimizations:</strong> {{ my_result.optimizations }}</div>
+                <div><strong>Bugs:</strong> {{ my_result.bugs }}</div>
+                <div><strong>Technical Debt:</strong> {{ my_result.technical_debt }}</div>
+                <div><strong>Resources:</strong> {{ my_result.resources }}</div>
+            </div>      
+            
+            <a href="{{ url_for('play_sprint', sprint_num=sprint_num + 1) }}" class="btn">🔄 🚀 Continue to Next Sprint</a>
+            
+        </div>
+
+        
+        <!-- Summary Table -->
+        <div class="summary-box">
+            <h3>📊 Raiting Table </h3>
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>Satisfaction</th>
+                        <th>Features</th>
+                        <th>Optimizations</th>
+                        <th>Bugs</th>
+                        <th>Technical Debt</th>
+                        <th>Resources</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in results %}
+                    <tr {% if r.team_id == my_result.team_id %}class="highlight"{% endif %}>
+                        <td>{{ r.team }}</td>
+                        <td>{{ r.satisfaction }}</td>
+                        <td>{{ r.features }}</td>
+                        <td>{{ r.optimizations }}</td>
+                        <td>{{ r.bugs }}</td>
+                        <td>{{ r.technical_debt }}</td>
+                        <td>{{ r.resources }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>   
+
+</div>
+
+</body>
+</html>

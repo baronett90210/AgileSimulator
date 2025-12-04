@@ -51,7 +51,6 @@
 
 
 
-
 /* Play round page styling */
 body {
     font-family: "Segoe UI", Roboto, sans-serif;
@@ -61,6 +60,24 @@ body {
     padding: 2rem;
     display: flex;
     justify-content: center;
+}
+
+/* Developer table styling */
+.dev-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+}
+
+.dev-table th, .dev-table td {
+    border: 1px solid #ccc;
+    padding: 0.25rem;
+    text-align: center;
+}
+
+.dev-table th {
+    background-color: #eef3ff;
 }
 
 /* Round box styling */
@@ -175,6 +192,18 @@ p.error {
     color: #dc3545;
     font-weight: bold;
     text-align: center;
+}
+
+/* Sprint message box */
+.sprint-message-box {
+    margin-top: 1.5rem;
+    background-color: #eaf4ff;
+    border-left: 6px solid #0d6efd;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 300px;
+    font-weight: 500;
+    color: #0d3e7c;
 }
 
 /* Round message box */

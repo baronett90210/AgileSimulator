@@ -4,9 +4,9 @@ from .constants import FIELDS
 
 class Game:
 
-    def __init__(self, team, expectation = None, total_sprints = None):
+    def __init__(self, team = None, sprints_per_round = None, expectation = None, total_sprints = None):
         
-        self.sprints_per_round = 4 
+        self.sprints_per_round = sprints_per_round if sprints_per_round is not None else 4
         self.team = team
         self.expectation = {
             'feature': 1,
@@ -14,7 +14,7 @@ class Game:
         } if expectation is None else expectation
         self.total_sprints = total_sprints
 
-    def play_sprint(self, sprint_num, allocations = None, staffing = None):
+    def play_sprint(self, sprint_num, allocations = None, staffing = None, current_sprint = None):
 
         # create allocations from command prompt if not given
         if allocations is None:
@@ -33,8 +33,32 @@ class Game:
                         print("Enter a valid integer.")
 
         self.team.allocate_points(allocations)
-        self.team.handle_staffing(staffing)
-        self.team.end_sprint()
+        self.team.handle_staffing(staffing, current_sprint)
+        self.team.end_sprint(current_sprint)
+
+    def end_sprint(self):
+
+        met_expectation = (
+            self.team.features_sprint >= self.expectation['feature'] and
+            self.team.optimizations_sprint >= self.expectation['optimization']
+        )
+
+        too_much_debt = self.team.technical_debt >= 4
+
+        if met_expectation:
+            self.team.satisfaction += 1
+            self.team.resources += 1
+            print("✅ Expectations met! Satisfaction +1, Resources +1")
+        else:
+            self.team.satisfaction -= 1
+            print("❌ Expectations not met! Satisfaction -1")
+        self.team.features_sprint = 0
+        self.team.optimizations_sprint = 0
+        print(f"Final Satisfaction: {self.team.satisfaction}")
+        print(f"Resources: {self.team.resources}")
+        print(f"Developers: {self.team.n_developers}")
+
+        return met_expectation, too_much_debt
 
     def end_round(self):
 
@@ -47,13 +71,13 @@ class Game:
         self.team.features_round = 0
         self.team.optimizations_round = 0
 
-        if met_expectation:
-            self.team.satisfaction += 1
-            self.team.resources += 1
-            print("✅ Expectations met! Satisfaction +1, Resources +1")
-        else:
-            self.team.satisfaction -= 1
-            print("❌ Expectations not met! Satisfaction -1")
+        # if met_expectation:
+        #     self.team.satisfaction += 1
+        #     self.team.resources += 1
+        #     print("✅ Expectations met! Satisfaction +1, Resources +1")
+        # else:
+        #     self.team.satisfaction -= 1
+        #     print("❌ Expectations not met! Satisfaction -1")
         
         if too_many_bugs:
             self.team.satisfaction -= 1
@@ -80,6 +104,15 @@ class Game:
             "expectation": self.expectation,
         }
     
+    @classmethod 
+    def from_dict(cls, data, team = None):
+        
+        return cls(
+                team = team,
+                expectation=data["expectation"],
+                total_sprints=data["total_sprints"],
+                sprints_per_round=data["sprints_per_round"]
+                )
 
 
 if __name__ == "__main__":

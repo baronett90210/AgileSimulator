@@ -2,19 +2,21 @@ from .constants import FIELDS
 from .developer import Developer
 
 class Team:
-    def __init__(self, name):
+    def __init__(self, name, current_sprint = 0):
         self.name = name
         self.bugs = 0
         self.technical_debt = 0
         self.resources = 3
         self.satisfaction = 0
+        self.features_sprint = 0
+        self.optimizations_sprint = 0
         self.features_round = 0
         self.optimizations_round = 0
         self.total_features = 0
         self.total_optimizations = 0
         self.allocations = {}
         self.developers = [Developer() for _ in range(3)]
-        self.capacity = self.update_capacity(0)
+        self.update_capacity(current_sprint)
 
     def update_capacity(self, current_sprint):
 
@@ -54,9 +56,11 @@ class Team:
         self.technical_debt = max(0, self.technical_debt - self.allocations['Technical debt'])
 
         # Handle staffing
-        self.team.update_capacity(current_sprint)
+        self.update_capacity(current_sprint)
 
         # Update totals
+        self.features_sprint += self.allocations['New feature']
+        self.optimizations_sprint += self.allocations['Optimization']
         self.features_round += self.allocations['New feature']
         self.optimizations_round += self.allocations['Optimization']
         self.total_features += self.allocations['New feature']
@@ -67,7 +71,7 @@ class Team:
             for _ in range(count):
                 # Create a new developer with default skill
                 self.developers.append(Developer(available_from = current_sprint + 2))
-                self.resources -= 3
+                # self.resources -= 3
             print(f"{self.name} hired a new developer!")
         else:
             raise ValueError("Does not have enough resources to hire a new developer!!")
@@ -76,7 +80,6 @@ class Team:
         return {
             "name": self.name,
             "developers": self.developers,
-            "skill_per_dev": self.skill_per_dev,
             "bugs": self.bugs,
             "technical_debt": self.technical_debt,
             "resources": self.resources,
@@ -91,11 +94,10 @@ class Team:
     
     
     @classmethod 
-    def from_dict(cls, data):
+    def from_dict(cls, data, current_sprint = 0):
         
         team = cls(data["name"])
         team.developers = data["developers"]
-        team.skill_per_dev = data["skill_per_dev"]
         team.bugs = data["bugs"]
         team.technical_debt = data["technical_debt"]
         team.resources = data["resources"]
@@ -106,6 +108,7 @@ class Team:
         team.total_optimizations = data["total_optimizations"]
         team.allocations = data["allocations"]
         team.developers = [Developer.from_dict(d) for d in data["developers"]]
+        team.update_capacity(current_sprint)
 
         return team
     

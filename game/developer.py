@@ -13,4 +13,4 @@ class Developer:
     
     @classmethod
     def from_dict(cls, data):
-        return cls(skill_level=data["skill_level"], available_from=data["available_from"])
+        return cls(skill=data["skill"], available_from=data["available_from"])

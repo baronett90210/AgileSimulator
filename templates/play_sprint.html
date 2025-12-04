@@ -11,8 +11,30 @@
     <h1> Sprint {{ sprint_in_round }} / {{sprints_per_round}}</h1>
     <h2>Team: {{ team.name }}</h2>
     <p>Capacity: {{ team.capacity }}</p>
-    <p>Developers: {{ team.n_developers }}</p>
     <p>Resources: {{ team.resources }}</p>
+
+    <h2>Developers</h2>
+    <table class="dev-table">
+        <tr>
+            <th>#</th>
+            <th>Skill</th>
+            <th>Ready</th>
+        </tr>
+        {% for dev in team.developers %}
+        <tr>
+            <td>Dev {{ loop.index }}</td>
+            <td>{{ dev.skill }}</td>
+            {% if dev.available_from <= sprint_num %}
+                <td style="color:green; font-weight:bold;">Yes</td>
+            {% else %}
+                <td style="color:rgb(255, 0, 119);">
+                    In {{ dev.available_from - sprint_num }} sprint{{ 's' if (dev.available_from - sprint_num) > 1 else '' }}
+                </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
     <h2>Customer Expectation:</h2>
     <p>Features: {{ game.expectation['feature'] }}, Optimizations: {{ game.expectation['optimization'] }}</p>
 </div>
@@ -49,16 +71,23 @@
         
         <h1>Team Status</h1>
         <!-- <h2>This round</h2> -->
-        <h2>Current expectations</h2>
+        <!-- <h2>Current expectations</h2>
         <p>Features: {{ team.features_round }}</p>
         <p>Optimizations: {{ team.optimizations_round }}</p>
 
-        <h2>Total</h2>
+        <h2>Total</h2> -->
         <p>Satisfaction: {{ team.satisfaction }}</p>
         <p>Bugs: {{ team.bugs }}</p>
         <p>Technical Debt: {{ team.technical_debt }}</p>       
         <p>Total features: {{ team.total_features }}</p>
         <p>Total optimizations: {{ team.total_optimizations }}</p>
+
+        {% if sprint_message %}
+        <div class="sprint-message-box">
+            {{ sprint_message | safe}}
+        </div>
+         {% endif %}
+
         {% if round_message %}
         <div class="round-message-box">
             {{ round_message | safe}}
