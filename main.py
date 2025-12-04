@@ -89,8 +89,8 @@ def play_sprint(sprint_num):
             sprint_message = sprint_message_text(met_expectations, too_much_debt)
             session['sprint_message'] = sprint_message
             # Increase expectation for the next sprint
-            game.expectation['feature'] += 1 * ((sprint_num + 1) // 2)
-            game.expectation['optimization'] += 1 * ((sprint_num + 2) // 2)
+            game.expectation['feature'] += 1 * ((sprint_num + 1) % 2)
+            game.expectation['optimization'] += 1 * ((sprint_num + 2) % 2)
 
             ##### Sprint/Round/Game end logic ####
             if (sprint_num + 1) >= game.total_sprints:
