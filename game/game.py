@@ -10,7 +10,7 @@ class Game:
         self.team = team
         self.expectation = {
             'feature': 1,
-            'optimization': 1
+            'optimization': 0
         } if expectation is None else expectation
         self.total_sprints = total_sprints
 

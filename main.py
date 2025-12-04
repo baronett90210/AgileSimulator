@@ -26,10 +26,11 @@ def start_game():
         team_name = request.form['team_name']
         # rounds = int(request.form['total_rounds'])
         rounds = 5
+        sprints_per_round = 4  # fixed for now
         session["team_id"] = str(uuid.uuid4())
         session['team_name'] = team_name
         session['total_rounds'] = rounds
-        session['sprints_per_round'] = 2  # fixed for now
+        session['sprints_per_round'] = sprints_per_round  # fixed for now
         return redirect(url_for('play_sprint', sprint_num = 0))
     
     return render_template('start_game.html')
@@ -58,7 +59,7 @@ def play_sprint(sprint_num):
         session['game_data'] = game.to_dict()
         # Update team state in session
         session['team_data'] = team.to_dict()
-        
+
     round_num = sprint_num // game.sprints_per_round + 1
     sprint_in_round = sprint_num % game.sprints_per_round + 1
     error = None
@@ -88,8 +89,8 @@ def play_sprint(sprint_num):
             sprint_message = sprint_message_text(met_expectations, too_much_debt)
             session['sprint_message'] = sprint_message
             # Increase expectation for the next sprint
-            game.expectation['feature'] += 1
-            game.expectation['optimization'] += 1
+            game.expectation['feature'] += 1 * ((sprint_num + 1) // 2)
+            game.expectation['optimization'] += 1 * ((sprint_num + 2) // 2)
 
             ##### Sprint/Round/Game end logic ####
             if (sprint_num + 1) >= game.total_sprints:
